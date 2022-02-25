@@ -1,0 +1,202 @@
+* {
+  margin: 0;
+  padding: 0;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+body {
+  height: 700px;
+  background: grey;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+#container {
+  width: 400px;
+  height: 200px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  border-radius: 7px;
+  border: solid #0508aa;
+  background: greenyellow;
+}
+
+#container .welcomeText {
+  font-size: 30px;
+  color: #0508aa;
+  margin-top: 10px;
+  margin-bottom: 20px;
+}
+
+#container #inputForBoardSize[type="number"] {
+  width: 300px;
+  height: 60px;
+  border-radius: 10px;
+  border: 3px solid #0508aa;
+  font-size: 26px;
+}
+
+#topButtons {
+  height: 100px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+#topButtons #buttonX {
+  width: 60px;
+  height: 60px;
+  border: 1px solid black;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  font-size: 30px;
+  border-radius: 7px;
+  background: greenyellow;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+#topButtons #startGame {
+  width: 100px;
+  height: 60px;
+  border: 1px solid black;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  margin: 10px 10px 0 10px;
+  font-size: 30px;
+  border-radius: 7px;
+  background: greenyellow;
+  cursor: pointer;
+}
+
+#topButtons #startGame:hover {
+  width: 110px;
+  height: 63px;
+}
+
+#topButtons #buttonO {
+  width: 60px;
+  height: 60px;
+  border: 1px solid black;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  font-size: 30px;
+  border-radius: 7px;
+  background: greenyellow;
+  cursor: pointer;
+  pointer-events: painted;
+  margin-top: 10px;
+}
+
+#board {
+  height: auto;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  cursor: "disabled";
+}
+
+#board .boxes {
+  font-family: "Permanent Marker", cursive;
+  width: 160px;
+  height: 160px;
+  border: 2px solid black;
+  cursor: pointer;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  font-size: 2vw;
+  background: #d1d100;
+}
+
+#divForGameStatus {
+  width: 300px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+#divForGameStatus #gameStatus {
+  font-size: 36px;
+  height: 60px;
+  margin-top: 20px;
+}
+
+#restartGame {
+  width: 200px;
+  height: 50px;
+  font-size: 25px;
+  border: 1px solid black;
+  border-radius: 10px;
+  background: greenyellow;
+  cursor: pointer;
+}
+/*# sourceMappingURL=styles.css.map */
