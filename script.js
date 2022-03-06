@@ -5,71 +5,56 @@ let buttonX;
 let startGame;
 let buttonO;
 let boardSize;
-let restartGame;
+let restartGameButton;
 let divForGameStatus;
 let areaForGameStatus;
 let allBoxes;
-let gameRestart;
+let divForGoBackButtons;
+let menuButton;
 let gameStatus;
 let gameActive = true;
 let win = false;
 createInputAreaForCreatingBoard();
 
 function createInputAreaForCreatingBoard() {
-  document
-    .getElementById("inputForBoardSize")
-    .addEventListener("keypress", function (element) {
-      if (element.key === "Enter") {
-        boardSize = document.getElementById("inputForBoardSize").value;
-        createHtml();
-        document.getElementById("inputForBoardSize").style.display = "none";
-        document.getElementById("container").style.display="none"
-        document.body.style.height="auto"
-      }
-    });
+  document.addEventListener("keypress", function (element) {
+    if (element.key === "Enter") {
+      clickAndStart();
+    }
+  });
+  const startWithClickButton = document.querySelector("#inputButton");
+  startWithClickButton.onclick = () => {
+    clickAndStart();
+  };
 }
-function createHtml() {
-  topButtons = document.createElement("section");
-  topButtons.id = `topButtons`;
+function clickAndStart() {
+  createSectionForButtons();
+  createXbutton();
+  createPlaybutton();
+  createObutton();
+  createBoard();
+  createDivForGameStatus();
+  createAreaForGameStatus();
+  createDivForGoBackButtons();
+  createMenuButton();
+  createRestartGame();
 
-  buttonX = document.createElement("div");
-  buttonX.id = `buttonX`;
-  buttonX.innerHTML = "X";
-  topButtons.appendChild(buttonX);
-
-  startGame = document.createElement("div");
-  startGame.id = `startGame`;
-  startGame.innerHTML = "PLAY";
-  topButtons.appendChild(startGame);
-
-  buttonO = document.createElement("div");
-  buttonO.id = `buttonO`;
-  buttonO.innerHTML = "O";
-  topButtons.appendChild(buttonO);
-
-  document.body.appendChild(topButtons);
-  board = document.createElement("section");
-  board.id = `board`;
-  board.classList = "main";
-
-  divForGameStatus = document.createElement("div");
-  divForGameStatus.id = `divForGameStatus`;
-
-  areaForGameStatus = document.createElement("h2");
-  areaForGameStatus.id = `gameStatus`;
-  divForGameStatus.appendChild(areaForGameStatus);
-
-  restartGame = document.createElement("button");
-  restartGame.id = `restartGame`;
-  restartGame.innerHTML = "RESTART GAME";
-  divForGameStatus.appendChild(restartGame);
-
-  document.body.appendChild(board);
   document.body.appendChild(divForGameStatus);
 
-  gameRestart = document.querySelector("button");
   gameStatus = document.getElementById("gameStatus");
-  createMatrixBoard();
+  menuButton.style.display = "none";
+  menuButton.onclick = function () {
+    menuButton.style.display = "none";
+    mySymbol = "";
+    board.remove();
+    divForGameStatus.remove();
+    restartGameButton.style.display = "none";
+    document.getElementById("container").style.display = "flex";
+    divForGameStatus.style.display = "none";
+  };
+  restartGameButton.onclick = function () {
+    onClickButtonRestartGame();
+  };
   buttonX.onclick = function () {
     startGameWithXbutton();
   };
@@ -77,36 +62,106 @@ function createHtml() {
     startGameWithObutton();
   };
   startGame.onclick = function () {
-    startGameWithPlayButton(createMatrixBoard());
+    if (mySymbol !== "") {
+      startGameWithPlayButton(createMatrixBoard());
+    }
   };
-  gameRestart.onclick = function () {
-    onClickButtonRestartGame();
-  };
+  boardSize = document.getElementById("inputForBoardSize").value;
+  document.getElementById("container").style.display = "none";
+  topButtons.style.display = "flex";
+}
+function createSectionForButtons() {
+  topButtons = document.createElement("section");
+  topButtons.id = `topButtons`;
+  let containerDivForInputBoardSize = document.getElementById("container");
+  containerDivForInputBoardSize.appendChild(topButtons);
+}
+function createXbutton() {
+  buttonX = document.createElement("div");
+  buttonX.id = `buttonX`;
+  buttonX.innerHTML = "X";
+  topButtons.appendChild(buttonX);
+}
+function createPlaybutton() {
+  startGame = document.createElement("div");
+  startGame.id = `startGame`;
+  startGame.innerHTML = "PLAY";
+  topButtons.appendChild(startGame);
+}
+function createObutton() {
+  buttonO = document.createElement("div");
+  buttonO.id = `buttonO`;
+  buttonO.innerHTML = "O";
+  topButtons.appendChild(buttonO);
+}
+function createBoard() {
+  document.body.appendChild(topButtons);
+  board = document.createElement("section");
+  board.id = `board`;
+  board.classList = "main";
+  document.body.appendChild(board);
+  board.style.display = "none";
+  createMatrixBoard();
+}
+function createDivForGameStatus() {
+  divForGameStatus = document.createElement("div");
+  divForGameStatus.id = `divForGameStatus`;
+  divForGameStatus.style.display = "none";
+}
+function createAreaForGameStatus() {
+  areaForGameStatus = document.createElement("h2");
+  areaForGameStatus.id = `gameStatus`;
+  divForGameStatus.appendChild(areaForGameStatus);
+}
+function createDivForGoBackButtons() {
+  divForGoBackButtons = document.createElement("div");
+  divForGoBackButtons.id = `divForGoBackButtons`;
+  divForGameStatus.appendChild(divForGoBackButtons);
+}
+function createMenuButton() {
+  menuButton = document.createElement("button");
+  menuButton.id = `menuButton`;
+  menuButton.innerHTML = "MENU";
+  divForGoBackButtons.appendChild(menuButton);
+}
+function createRestartGame() {
+  restartGameButton = document.createElement("button");
+  restartGameButton.id = `restartGame`;
+  restartGameButton.innerHTML = "RESTART";
+  divForGoBackButtons.appendChild(restartGameButton);
 }
 
 function createMatrixBoard() {
-  let str = "";
+  let box = "";
   let boardWidth = 0;
   let matrix = new Array();
   let indexForBoxId = 0;
   for (let row = 0; row < boardSize; row++) {
     matrix[row] = new Array();
     for (let col = 0; col < boardSize; col++) {
-      str += ` <div class=boxes id=box${indexForBoxId++}> ` + " </div>  ";
+      box += ` <div class=boxes id=box${indexForBoxId++}> ` + " </div>  ";
       matrix[row][col] = indexForBoxId - 1;
     }
     boardWidth += 160;
     board.style.width = boardWidth + "px";
   }
-  document.getElementById("board").innerHTML = str;
+  document.getElementById("board").innerHTML = box;
   allBoxes = document.querySelectorAll("#board div");
-  board.style.pointerEvents = "none";
-  if (boardSize > 5) {
-    boardWidth = 1000;
+  if (boardSize > 3) {
+    boardWidth = 500;
     board.style.width = boardWidth + "px";
     for (let i = 0; i < allBoxes.length; i++) {
       allBoxes[i].style.width = boardWidth / +boardSize + "px";
       allBoxes[i].style.height = boardWidth / +boardSize + "px";
+      if (boardSize > 10) {
+        allBoxes[i].style.fontSize = "1.4vw";
+        if (boardSize > 20) {
+          allBoxes[i].style.fontSize = "1vw";
+          if (boardSize > 40) {
+            allBoxes[i].style.fontSize = "0.5vw";
+          }
+        }
+      }
     }
   }
   renderSymbols(matrix, allBoxes);
@@ -140,7 +195,7 @@ const getAllTheMovesAndCheckThem = (matrix, allBoxes) => {
   winningMessage(diagonalMoves, allBoxes, leftToRightMoves, topToBottomMoves);
   drawGame(allBoxes);
 };
-let color = "green";
+let color = "rgb(49, 255, 49)";
 function winningMessage(
   diagonalMoves,
   allBoxes,
@@ -230,7 +285,7 @@ function drawGame(allBoxes) {
       count++;
       if (count === allBoxes.length) {
         for (let j = 0; j < allBoxes.length; j++) {
-          allBoxes[j].style.backgroundColor = "blue";
+          allBoxes[j].style.backgroundColor = "#5bccf6";
         }
         gameStatus.innerHTML = "DRAW!";
         gameStop();
@@ -267,17 +322,18 @@ function renderSymbolsRandom(matrix, allBoxes) {
   if (allBoxes[indices[toAdd]] !== undefined) {
     if (gameActive === true && win === false) {
       allBoxes[indices[toAdd]].innerHTML = "O";
+      allBoxes[indices[toAdd]].innerHTML;
       if (mySymbol === "X") {
-        color = "red";
+        color = "rgb(255, 60, 60)";
         getAllTheMovesAndCheckThem(matrix, allBoxes);
-        color = "green";
+        color = "rgb(49, 255, 49)";
       }
     } else if (gameActive === false && win === false) {
       allBoxes[indices[toAdd]].innerHTML = "X";
       if (mySymbol === "O") {
-        color = "red";
+        color = "rgb(255, 60, 60)";
         getAllTheMovesAndCheckThem(matrix, allBoxes);
-        color = "green";
+        color = "rgb(49, 255, 49)";
       }
     }
   }
@@ -287,17 +343,20 @@ let mySymbol = "";
 function startGameWithXbutton() {
   mySymbol = "X";
   gameActive = true;
-  buttonX.style.backgroundColor = "rgb(110, 184, 0)";
+  buttonX.style.backgroundColor = "#ffbf4b";
+  buttonX.style.border = "#1px solid black";
+
   if (mySymbol === "X") {
-    buttonO.style.backgroundColor = "rgb(173, 255, 47)";
+    buttonO.style.backgroundColor = "#373234";
   }
 }
 function startGameWithObutton() {
   mySymbol = "O";
   gameActive = false;
-  buttonO.style.backgroundColor = "rgb(110, 184, 0)";
+  buttonO.style.backgroundColor = "#ffbf4b";
+  buttonO.style.border="#1px solid black"
   if (mySymbol === "O") {
-    buttonX.style.backgroundColor = "rgb(173, 255, 47)";
+    buttonX.style.backgroundColor = "#373234";
   }
 }
 
@@ -305,11 +364,19 @@ function startGameWithPlayButton(allBoxesAndMatrix) {
   if (mySymbol === "X" || mySymbol === "O") {
     buttonX.style.pointerEvents = "none";
     buttonO.style.pointerEvents = "none";
-    buttonX.style.backgroundColor = "rgb(173, 255, 47)";
-    buttonO.style.backgroundColor = "rgb(173, 255, 47)";
+    buttonX.style.backgroundColor = "#373234";
+    buttonO.style.backgroundColor = "#373234";
     board.style.pointerEvents = "painted";
     startGame.style.pointerEvents = "none";
   }
+  divForGameStatus.style.display = "flex";
+  topButtons.style.display = "none";
+  restartGameButton.style.display = "block";
+  board.style.display = "flex";
+  gameStatus.innerHTML = "";
+  menuButton.style.display = "block";
+  win = false;
+  createMatrixBoard();
   if (mySymbol === "O") {
     renderSymbolsRandom(allBoxesAndMatrix.matrix, allBoxes);
   }
@@ -322,8 +389,12 @@ function onClickButtonRestartGame() {
   gameActive = true;
   gameStatus.innerHTML = "";
   mySymbol = "";
-  createMatrixBoard();
+  board.style.pointerEvents = "none";
+  restartGameButton.style.display = "none";
+  topButtons.style.display = "flex";
+  board.style.display = "none";
+  menuButton.style.display = "none";
 }
-function gameStop(allBoxes) {
+function gameStop() {
   board.style.pointerEvents = "none";
 }
