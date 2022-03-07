@@ -16,17 +16,12 @@ let gameActive = true;
 let win = false;
 createInputAreaForCreatingBoard();
 
-function createInputAreaForCreatingBoard() {
-  document.addEventListener("keypress", function (element) {
-    if (element.key === "Enter") {
-      clickAndStart();
-    }
-  });
-  const startWithClickButton = document.querySelector("#inputButton");
-  startWithClickButton.onclick = () => {
-    clickAndStart();
-  };
-}
+// function createInputAreaForCreatingBoard() {
+//   const startWithClickButton = document.querySelector("#inputButton");
+//   startWithClickButton.onclick = () => {
+//     clickAndStart();
+//   };
+// }
 function clickAndStart() {
   createSectionForButtons();
   createXbutton();
@@ -173,11 +168,11 @@ function createMatrixBoard() {
   return objectReturningMatrixAndAllBoxses;
 }
 const getAllTheMovesAndCheckThem = (matrix, allBoxes) => {
-  let diagonalMoves = [];
-  let equalBasedDiagonal = [];
-  let rightToLeftBasedDiagonal = [];
-  let leftToRightMoves = [];
-  let topToBottomMoves = [];
+  const diagonalMoves = [];
+  const equalBasedDiagonal = [];
+  const rightToLeftBasedDiagonal = [];
+  const leftToRightMoves = [];
+  const topToBottomMoves = [];
   for (let row = 0; row < matrix.length; row++) {
     topToBottomMoves.push([]);
     for (let col = 0; col < matrix.length; col++) {
@@ -192,11 +187,11 @@ const getAllTheMovesAndCheckThem = (matrix, allBoxes) => {
     leftToRightMoves.push(matrix[row]);
   }
   diagonalMoves.push(equalBasedDiagonal, rightToLeftBasedDiagonal);
-  winningMessage(diagonalMoves, allBoxes, leftToRightMoves, topToBottomMoves);
+  winConditions(diagonalMoves, allBoxes, leftToRightMoves, topToBottomMoves);
   drawGame(allBoxes);
 };
 let color = "rgb(49, 255, 49)";
-function winningMessage(
+function winConditions(
   diagonalMoves,
   allBoxes,
   leftToRightMoves,
@@ -223,7 +218,7 @@ function winningMessage(
         }
       }
     }
-    winner = 0;
+    // winner = 0;
   }
   isCheckingHorizontalBoxes(leftToRightMoves);
   isCheckingVerticalBoxes(topToBottomMoves);
@@ -354,7 +349,7 @@ function startGameWithObutton() {
   mySymbol = "O";
   gameActive = false;
   buttonO.style.backgroundColor = "#ffbf4b";
-  buttonO.style.border="#1px solid black"
+  buttonO.style.border = "#1px solid black";
   if (mySymbol === "O") {
     buttonX.style.backgroundColor = "#373234";
   }
