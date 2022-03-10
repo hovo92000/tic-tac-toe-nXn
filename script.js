@@ -17,27 +17,22 @@ let win = false;
 createInputAreaForCreatingBoard();
 
 function createInputAreaForCreatingBoard() {
-  document.addEventListener("keypress", function (element) {
-    if (element.key === "Enter") {
-      clickAndStart();
-    }
-  });
   const startWithClickButton = document.querySelector("#inputButton");
   startWithClickButton.onclick = () => {
-    clickAndStart();
+    startTheGame();
   };
 }
-function clickAndStart() {
-  createSectionForButtons();
-  createXbutton();
-  createPlaybutton();
-  createObutton();
-  createBoard();
-  createDivForGameStatus();
-  createAreaForGameStatus();
-  createDivForGoBackButtons();
-  createMenuButton();
-  createRestartGame();
+function startTheGame() {
+  renderSectionForButtons();
+  renderXbutton();
+  renderPlaybutton();
+  renderObutton();
+  renderBoard();
+  renderDivForGameStatus();
+  renderAreaForGameStatus();
+  renderDivForGoBackButtons();
+  renderMenuButton();
+  renderRestartGame();
 
   document.body.appendChild(divForGameStatus);
 
@@ -53,7 +48,7 @@ function clickAndStart() {
     divForGameStatus.style.display = "none";
   };
   restartGameButton.onclick = function () {
-    onClickButtonRestartGame();
+    restartGame();
   };
   buttonX.onclick = function () {
     startGameWithXbutton();
@@ -63,75 +58,75 @@ function clickAndStart() {
   };
   startGame.onclick = function () {
     if (mySymbol !== "") {
-      startGameWithPlayButton(createMatrixBoard());
+      startGameWithPlayButton(renderMatrixBoard());
     }
   };
   boardSize = document.getElementById("inputForBoardSize").value;
   document.getElementById("container").style.display = "none";
   topButtons.style.display = "flex";
 }
-function createSectionForButtons() {
+function renderSectionForButtons() {
   topButtons = document.createElement("section");
   topButtons.id = `topButtons`;
   let containerDivForInputBoardSize = document.getElementById("container");
   containerDivForInputBoardSize.appendChild(topButtons);
 }
-function createXbutton() {
+function renderXbutton() {
   buttonX = document.createElement("div");
   buttonX.id = `buttonX`;
   buttonX.innerHTML = "X";
   topButtons.appendChild(buttonX);
 }
-function createPlaybutton() {
+function renderPlaybutton() {
   startGame = document.createElement("div");
   startGame.id = `startGame`;
   startGame.innerHTML = "PLAY";
   topButtons.appendChild(startGame);
 }
-function createObutton() {
+function renderObutton() {
   buttonO = document.createElement("div");
   buttonO.id = `buttonO`;
   buttonO.innerHTML = "O";
   topButtons.appendChild(buttonO);
 }
-function createBoard() {
+function renderBoard() {
   document.body.appendChild(topButtons);
   board = document.createElement("section");
   board.id = `board`;
   board.classList = "main";
   document.body.appendChild(board);
   board.style.display = "none";
-  createMatrixBoard();
+  renderMatrixBoard();
 }
-function createDivForGameStatus() {
+function renderDivForGameStatus() {
   divForGameStatus = document.createElement("div");
   divForGameStatus.id = `divForGameStatus`;
   divForGameStatus.style.display = "none";
 }
-function createAreaForGameStatus() {
+function renderAreaForGameStatus() {
   areaForGameStatus = document.createElement("h2");
   areaForGameStatus.id = `gameStatus`;
   divForGameStatus.appendChild(areaForGameStatus);
 }
-function createDivForGoBackButtons() {
+function renderDivForGoBackButtons() {
   divForGoBackButtons = document.createElement("div");
   divForGoBackButtons.id = `divForGoBackButtons`;
   divForGameStatus.appendChild(divForGoBackButtons);
 }
-function createMenuButton() {
+function renderMenuButton() {
   menuButton = document.createElement("button");
   menuButton.id = `menuButton`;
   menuButton.innerHTML = "MENU";
   divForGoBackButtons.appendChild(menuButton);
 }
-function createRestartGame() {
+function renderRestartGame() {
   restartGameButton = document.createElement("button");
   restartGameButton.id = `restartGame`;
   restartGameButton.innerHTML = "RESTART";
   divForGoBackButtons.appendChild(restartGameButton);
 }
 
-function createMatrixBoard() {
+function renderMatrixBoard() {
   let box = "";
   let boardWidth = 0;
   let matrix = new Array();
@@ -173,11 +168,11 @@ function createMatrixBoard() {
   return objectReturningMatrixAndAllBoxses;
 }
 const getAllTheMovesAndCheckThem = (matrix, allBoxes) => {
-  let diagonalMoves = [];
-  let equalBasedDiagonal = [];
-  let rightToLeftBasedDiagonal = [];
-  let leftToRightMoves = [];
-  let topToBottomMoves = [];
+  const diagonalMoves = [];
+  const equalBasedDiagonal = [];
+  const rightToLeftBasedDiagonal = [];
+  const leftToRightMoves = [];
+  const topToBottomMoves = [];
   for (let row = 0; row < matrix.length; row++) {
     topToBottomMoves.push([]);
     for (let col = 0; col < matrix.length; col++) {
@@ -192,11 +187,11 @@ const getAllTheMovesAndCheckThem = (matrix, allBoxes) => {
     leftToRightMoves.push(matrix[row]);
   }
   diagonalMoves.push(equalBasedDiagonal, rightToLeftBasedDiagonal);
-  winningMessage(diagonalMoves, allBoxes, leftToRightMoves, topToBottomMoves);
+  checkWinner(diagonalMoves, allBoxes, leftToRightMoves, topToBottomMoves);
   drawGame(allBoxes);
 };
 let color = "rgb(49, 255, 49)";
-function winningMessage(
+function checkWinner(
   diagonalMoves,
   allBoxes,
   leftToRightMoves,
@@ -354,7 +349,7 @@ function startGameWithObutton() {
   mySymbol = "O";
   gameActive = false;
   buttonO.style.backgroundColor = "#ffbf4b";
-  buttonO.style.border="#1px solid black"
+  buttonO.style.border = "#1px solid black";
   if (mySymbol === "O") {
     buttonX.style.backgroundColor = "#373234";
   }
@@ -376,12 +371,12 @@ function startGameWithPlayButton(allBoxesAndMatrix) {
   gameStatus.innerHTML = "";
   menuButton.style.display = "block";
   win = false;
-  createMatrixBoard();
+  renderMatrixBoard();
   if (mySymbol === "O") {
     renderSymbolsRandom(allBoxesAndMatrix.matrix, allBoxes);
   }
 }
-function onClickButtonRestartGame() {
+function restartGame() {
   startGame.style.pointerEvents = "painted";
   buttonX.style.pointerEvents = "painted";
   buttonO.style.pointerEvents = "painted";
@@ -398,3 +393,6 @@ function onClickButtonRestartGame() {
 function gameStop() {
   board.style.pointerEvents = "none";
 }
+
+
+
